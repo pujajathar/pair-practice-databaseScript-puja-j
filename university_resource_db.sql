@@ -35,10 +35,11 @@ CREATE TABLE library_resources (
 resource_id INT PRIMARY KEY AUTO_INCREMENT,
 resource_title VARCHAR(100) NOT NULL,
 course_id INT NOT NULL,
-FOREIGN KEY(course_id)
-	REFERENCES courses(course_id)
+FOREIGN KEY(course_id) 
+	REFERENCES courses(course_id),
+FOREIGN KEY (department_id)
+	REFERENCES departments(department_id)
 );
-
 ------------------
 -- Test tables
 ------------------
@@ -76,4 +77,11 @@ COMMIT;
 SELECT courses.course_code, courses.course_name, departments.department_name
 FROM courses
 JOIN departments ON courses.department_id = departments.department_id;
+
+SELECT library_resources.course_id,library_resources.resource_title,  courses.course_name, departments.department_name
+FROM library_resources
+	JOIN courses
+		ON library_resources.course_id = courses.course_id
+	JOIN departments 
+		ON courses.department_id = departments.department_id;
 
